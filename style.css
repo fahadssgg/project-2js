@@ -1,18 +1,144 @@
-body {
-  padding: 0;
-  margin: 0;
-  height: 100vh;
-  background: linear-gradient(
-    0deg,
-    rgba(0, 158, 245, 1) 0%,
-    rgba(1, 104, 206, 1) 70%
-  );
+@media only screen and (max-width: 600px) {
+  body {
+    padding: 0;
+    margin: 0;
+    height: 100vh;
+    background: linear-gradient(
+      0deg,
+      rgba(0, 158, 245, 1) 0%,
+      rgb(0, 146, 239) 70%
+    );
+  }
+
+  #canvas {
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 60%;
+    border-radius: 10px;
+    box-shadow: 5px 5px 5px 5px rgba(0, 0, 0, 0.251);
+  }
+
+  .treecon {
+    position: relative;
+    height: 80vh;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: center;
+  }
+
+  .treecon .imgPot {
+    position: absolute;
+    bottom: 180px;
+    height: 50px;
+    width: 50px;
+    z-index: 999;
+  }
+
+  .treecon .imgMan {
+    position: absolute;
+    bottom: 180px;
+    left: 10px;
+    height: 100px;
+    width: 100px;
+    z-index: 999;
+  }
+
+  .treecon .imgGrass {
+    position: absolute;
+    bottom: 150px;
+
+    height: 100px;
+    width: 100%;
+  }
+
+  .btns {
+    margin: 30px 10px;
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 10vh;
+    width: 22vw;
+  }
+
+  #canvas2 {
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+  }
 }
 
-#canvas {
-  position: absolute;
-  left: 0;
-  top: 0;
-  width: 100%;
-  height: 100%;
+@media only screen and (min-width: 600px) {
+  body {
+    padding: 0;
+    margin: 0;
+    height: 100vh;
+    background: linear-gradient(
+      0deg,
+      rgba(0, 158, 245, 1) 0%,
+      rgb(0, 146, 239) 70%
+    );
+  }
+
+  #canvas {
+    left: 0;
+    top: 0;
+    width: 60%;
+    height: 70%;
+    border-radius: 10px;
+    box-shadow: 5px 5px 5px 5px rgba(0, 0, 0, 0.251);
+  }
+
+  .treecon {
+    position: relative;
+    height: 90vh;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: center;
+  }
+
+  .treecon .imgPot {
+    position: absolute;
+    bottom: 160px;
+    height: 80px;
+    width: 80px;
+    z-index: 999;
+  }
+
+  .treecon .imgMan {
+    position: absolute;
+    bottom: 180px;
+    left: 350px;
+    height: 150px;
+    width: 150px;
+    z-index: 999;
+  }
+  .treecon .imgGrass {
+    position: absolute;
+    bottom: 120px;
+
+    height: 200px;
+    width: 60%;
+  }
+
+  .btns {
+    margin: 30px 10px;
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 10vh;
+    width: 5vw;
+  }
+
+  #canvas2 {
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+  }
 }

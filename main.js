@@ -3,11 +3,10 @@ let canvas,
   w,
   h,
   trees,
-  moon,
   stars = [],
   meteors = [];
-let branchChance = [0.08, 0.09, 0.1, 0.11, 0.12, 0.15, 0.3];
-let branchAngles = [20, 25, 30, 35];
+let branchChance = [0.4, 0.5, 0.23, 0.43, 2];
+let branchAngles = [25, 24, 32, 20];
 
 function init() {
   canvas = document.querySelector("#canvas");
@@ -33,7 +32,7 @@ function resizeReset() {
 }
 
 function drawGround() {
-  ctx.fillStyle = `rgba(54, 121, 38, 1)`;
+  ctx.fillStyle = `rgb(51,135,39)`;
   ctx.fillRect(0, h - 100, w, h);
 }
 
@@ -119,7 +118,8 @@ class Branch {
   branchReset() {
     this.sx = this.x;
     this.sy = this.y;
-    this.length = this.radius * 20;
+    // هنا بعدل
+    this.length = this.radius * 30;
     this.progress = 0;
     this.branchChance = branchChance[7 - this.radius];
     this.branchCount = 0;
@@ -129,7 +129,7 @@ class Branch {
     if (this.progress > 1 || this.radius <= 0) return;
     ctx.beginPath();
     ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
-    ctx.fillStyle = `rgba(25,38,26,1)`;
+    ctx.fillStyle = `rgba(50,38,26,1)`;
     ctx.fill();
     ctx.closePath();
   }
@@ -183,4 +183,138 @@ class Star {
 }
 
 window.addEventListener("DOMContentLoaded", init);
-window.addEventListener("resize", resizeReset);
+window.addEventListener("click", resizeReset);
+
+///////////////////////////////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////الشمس والشهب//////////////////////////////////////////////////////
+let canvas2,
+  ctx2,
+  w2,
+  h2,
+  sun,
+  stars2 = [],
+  meteors2 = [];
+
+function init2() {
+  canvas2 = document.querySelector("#canvas2");
+  ctx2 = canvas2.getContext("2d");
+  resizeReset2();
+  sun = new Sun();
+  for (let a = 0; a < w2 * h2 * 0.0001; a++) {
+    stars2.push(new Star2());
+  }
+  for (let b = 0; b < 2; b++) {
+    meteors2.push(new Meteor());
+  }
+  animationLoop2();
+}
+
+function resizeReset2() {
+  w2 = canvas2.width = window.innerWidth;
+  h2 = canvas2.height = window.innerHeight;
+}
+
+function animationLoop2() {
+  ctx2.clearRect(0, 0, w2, h2);
+  drawScene2();
+  requestAnimationFrame(animationLoop2);
+}
+
+function drawScene2() {
+  sun.draw();
+  stars2.map((star) => {
+    star.update();
+    star.draw();
+  });
+  meteors2.map((meteor) => {
+    meteor.update();
+    meteor.draw();
+  });
+}
+
+class Sun {
+  constructor() {
+    this.x = 150;
+    this.y = 170;
+    this.size = 200;
+  }
+  draw() {
+    ctx2.save();
+    ctx2.beginPath();
+    ctx2.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+    ctx2.shadowColor = "rgba(254, 247, 144, .7)";
+    ctx2.shadowBlur = 70;
+    ctx2.fillStyle = "rgba(254, 247, 144, 1)";
+    ctx2.fill();
+    ctx2.closePath();
+    ctx2.restore();
+  }
+}
+
+class Star2 {
+  constructor() {
+    this.x = Math.random() * w2;
+    this.y = Math.random() * h2;
+    this.size = Math.random() + 0.5;
+    this.blinkChance = 0.003;
+    this.alpha = 1;
+    this.alphaChange = 0;
+  }
+  draw() {
+    ctx2.beginPath();
+    ctx2.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+    ctx2.fillStyle = `rgba(255, 255, 255, ${this.alpha})`;
+    ctx2.fill();
+    ctx2.closePath();
+  }
+  update() {
+    if (this.alphaChange === 0 && Math.random() < this.blinkChance) {
+      this.alphaChange = -1;
+    } else if (this.alphaChange !== 0) {
+      this.alpha += this.alphaChange * 0.05;
+      if (this.alpha <= 0) {
+        this.alphaChange = 1;
+      } else if (this.alpha >= 1) {
+        this.alphaChange = 0;
+      }
+    }
+  }
+}
+
+class Meteor {
+  constructor() {
+    this.reset();
+  }
+  reset() {
+    this.x = Math.random() * w2 + 300;
+    this.y = -100;
+    this.size = Math.random() * 2 + 0.5;
+    this.speed = (Math.random() + 0.5) * 15;
+  }
+  draw() {
+    ctx2.save();
+    ctx2.strokeStyle = "rgba(255, 255, 255, .1)";
+    ctx2.lineCap = "round";
+    ctx2.shadowColor = "rgba(255, 255, 255, 1)";
+    ctx2.shadowBlur = 10;
+    for (let i = 0; i < 10; i++) {
+      ctx2.beginPath();
+      ctx2.moveTo(this.x, this.y);
+      ctx2.lineWidth = this.size;
+      ctx2.lineTo(this.x + 10 * (i + 1), this.y - 10 * (i + 1));
+      ctx2.stroke();
+      ctx2.closePath();
+    }
+    ctx2.restore();
+  }
+  update() {
+    this.x -= this.speed;
+    this.y += this.speed;
+    if (this.y >= h2 + 100) {
+      this.reset();
+    }
+  }
+}
+
+window.addEventListener("DOMContentLoaded", init2);
+window.addEventListener("resize", resizeReset2);
