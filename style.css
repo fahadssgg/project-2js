@@ -30,6 +30,7 @@
   }
 
   .treecon .imgPot {
+    display: none;
     position: absolute;
     bottom: 180px;
     height: 50px;
@@ -60,6 +61,14 @@
     background-size: cover;
     height: 10vh;
     width: 22vw;
+  }
+
+  #oliBtn {
+    display: none;
+  }
+
+  #waterBtn {
+    display: none;
   }
 
   #canvas2 {
@@ -103,8 +112,9 @@
   }
 
   .treecon .imgPot {
+    display: none;
     position: absolute;
-    bottom: 160px;
+    bottom: 180px;
     height: 80px;
     width: 80px;
     z-index: 999;
@@ -121,7 +131,6 @@
   .treecon .imgGrass {
     position: absolute;
     bottom: 120px;
-
     height: 200px;
     width: 60%;
   }
@@ -134,6 +143,13 @@
     width: 5vw;
   }
 
+  #oliBtn {
+    display: none;
+  }
+
+  #waterBtn {
+    display: none;
+  }
   #canvas2 {
     position: fixed;
     left: 0;

@@ -41,21 +41,27 @@
 
     <div class="treecon">
       <canvas id="canvas"></canvas>
-      <img class="imgPot" src="./images/pot.png" />
+      <img id="pot" class="imgPot" src="./images/seeds.png" />
       <img class="imgMan" src="./images/agriculture.png" />
       <img class="imgGrass" src="./images/grass.png" />
       <div>
         <button
+          id="waterBtn"
+          onclick="water()"
           class="btn btn-info btns"
           type="button"
           style="background-image: url(./images/watering-can.png)"
         ></button>
         <button
+          id="ferBtn"
+          onclick="smad()"
           type="button"
           class="btn btn-info btns"
           style="background-image: url(./images/fertilizer.png)"
         ></button>
         <button
+          id="oliBtn"
+          onclick="oli()"
           type="button"
           class="btn btn-info btns"
           style="background-image: url(./images/oil.png)"

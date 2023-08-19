@@ -11,7 +11,7 @@ let branchAngles = [25, 24, 32, 20];
 function init() {
   canvas = document.querySelector("#canvas");
   ctx = canvas.getContext("2d");
-  resizeReset();
+  treeDie();
 
   for (let a = 0; a < w * h * 0.0001; a++) {
     stars.push(new Star());
@@ -19,9 +19,9 @@ function init() {
   animationLoop();
 }
 
-function addTree(e) {
-  trees.push(new Tree(e.x));
-}
+// function addTree(e) {
+//   trees.push(new Tree(e.x));
+// }
 
 function resizeReset() {
   w = canvas.width = window.innerWidth;
@@ -29,6 +29,13 @@ function resizeReset() {
   trees = [];
   drawGround();
   trees.push(new Tree());
+}
+
+function treeDie() {
+  w = canvas.width = window.innerWidth;
+  h = canvas.height = window.innerHeight;
+  trees = [];
+  drawGround();
 }
 
 function drawGround() {
@@ -47,7 +54,6 @@ function drawScene() {
     t.draw();
   });
 
-  // moon.draw();
   stars.map((star) => {
     star.update();
     star.draw();
@@ -63,7 +69,7 @@ class Tree {
     this.x = x ? x : w * 0.5;
     this.y = h;
     this.branchs = [];
-    this.addBranch(this.x, this.y - 150, getRandomInt(5, 7), 180);
+    this.addBranch(this.x, this.y - 110, getRandomInt(5, 7), 180);
   }
   addBranch(x, y, radius, angle) {
     this.branchs.push(new Branch(x, y, radius, angle));
@@ -118,18 +124,24 @@ class Branch {
   branchReset() {
     this.sx = this.x;
     this.sy = this.y;
-    // هنا بعدل
     this.length = this.radius * 30;
     this.progress = 0;
     this.branchChance = branchChance[7 - this.radius];
     this.branchCount = 0;
     this.branchDirection = Math.random() < 0.5 ? -1 : 1;
   }
+  updateLength(newLength) {
+    this.length = newLength;
+  }
   draw() {
     if (this.progress > 1 || this.radius <= 0) return;
     ctx.beginPath();
     ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
-    ctx.fillStyle = `rgba(50,38,26,1)`;
+    const my_gradient = ctx.createLinearGradient(0, 0, 0, 500);
+    my_gradient.addColorStop(0, `rgb(48,172,81)`);
+    my_gradient.addColorStop(1, `rgba(50,38,26,1)`);
+
+    ctx.fillStyle = my_gradient;
     ctx.fill();
     ctx.closePath();
   }
@@ -183,7 +195,29 @@ class Star {
 }
 
 window.addEventListener("DOMContentLoaded", init);
-window.addEventListener("click", resizeReset);
+///////////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////// الثلاث ازرار الاخيره//////////////////////////////////////////////////////
+let pot = document.getElementById("pot");
+let waterBtn = document.getElementById("waterBtn");
+let oliBtn = document.getElementById("oliBtn");
+function smad() {
+  pot.style.display = "flex";
+  oliBtn.style.display = "inline";
+  waterBtn.style.display = "inline";
+}
+
+function water() {
+  resizeReset();
+  pot.style.display = "none";
+}
+
+function oli() {
+  alert("the tree is died");
+  treeDie();
+  pot.style.display = "none";
+  waterBtn.style.display = "none";
+  oliBtn.style.display = "none";
+}
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////الشمس والشهب//////////////////////////////////////////////////////
