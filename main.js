@@ -19,10 +19,6 @@ function init() {
   animationLoop();
 }
 
-// function addTree(e) {
-//   trees.push(new Tree(e.x));
-// }
-
 function resizeReset() {
   w = canvas.width = window.innerWidth;
   h = canvas.height = window.innerHeight;
@@ -212,7 +208,6 @@ function water() {
 }
 
 function oli() {
-  alert("the tree is died");
   treeDie();
   pot.style.display = "none";
   waterBtn.style.display = "none";
